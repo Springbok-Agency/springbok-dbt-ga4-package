@@ -1,6 +1,8 @@
 -- This staging model contains key creation and window functions. Keeping window functions outside of the base incremental model ensures that the incremental updates don't artificially limit the window partition sizes (ex: if a session spans 2 days, but only 1 day is in the incremental update)
 with base_events as (
     select * from {{ ref('base_ga4__events')}}
+    where true
+    {{ filter_date_range(start_date, end_date, event_date_dt) }}
 ),
 -- Add key that captures a combination of stream_id and user_pseudo_id to uniquely identify a 'client' (aka. a device) within a single stream
 include_client_key as (

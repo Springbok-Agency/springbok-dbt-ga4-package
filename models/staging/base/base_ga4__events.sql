@@ -20,8 +20,8 @@
 with source as (
     select
         {{ ga4.base_select_source() }}
-    from {{ source('ga4', 'events') }}
-    where cast(left(replace(_table_suffix, 'intraday_', ''), 8) as int64) >= {{var('start_date')}}
+    from {{ source('ga4', 'events') }}    
+    {{ select_date_range_base(start_date, end_date) }}
     {% if is_incremental() %}
         and parse_date('%Y%m%d', left(replace(_table_suffix, 'intraday_', ''), 8)) in ({{ partitions_to_replace | join(',') }})
     {% endif %}
