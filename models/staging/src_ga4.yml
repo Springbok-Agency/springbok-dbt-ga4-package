@@ -14,3 +14,7 @@ sources:
       - name: events
         identifier: events_* # Scan across all sharded event tables. Use the 'start_date' variable to limit this scan
         description: Main events table exported by GA4. Sharded by date. 
+        freshness:
+            warn_after: {count: 3, period: hour}  # Warn if data is not available by 10:00
+            error_after: {count: 5, period: hour} # Error if data is not available by 12:00
+        loaded_at_field: "TIMESTAMP_MICROS(event_timestamp)"
