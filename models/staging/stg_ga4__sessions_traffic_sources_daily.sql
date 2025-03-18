@@ -116,6 +116,7 @@ first_session_source as (
         , first_value(session_traffic_source_last_click_creative_format ignore nulls) over (session_window) as session_traffic_source_last_click_creative_format
         , first_value(session_traffic_source_last_click_manual_marketing_tactic ignore nulls) over (session_window) as session_traffic_source_last_click_manual_marketing_tactic
         , first_value(collected_traffic_source_manual_campaign_id ignore nulls) over (session_window) as session_collected_traffic_source_manual_campaign_id
+        , first_value(collected_traffic_source_manual_campaign_name ignore nulls) over (session_window) as session_collected_traffic_source_manual_campaign_name
         , first_value(collected_traffic_source_manual_medium ignore nulls) over (session_window) as session_collected_traffic_source_manual_medium
         , first_value(collected_traffic_source_manual_term ignore nulls) over (session_window) as session_collected_traffic_source_manual_term
         , first_value(collected_traffic_source_manual_content ignore nulls) over (session_window) as session_collected_traffic_source_manual_content
@@ -158,6 +159,7 @@ select  stream_id
         , session_traffic_source_last_click_creative_format
         , session_traffic_source_last_click_manual_marketing_tactic
         , session_collected_traffic_source_manual_campaign_id
+        , session_collected_traffic_source_manual_campaign_name
         , session_collected_traffic_source_manual_medium
         , session_collected_traffic_source_manual_term
         , session_collected_traffic_source_manual_content
