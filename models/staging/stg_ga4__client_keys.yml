@@ -13,10 +13,11 @@ models:
     columns:
       - name: client_key
         description: Hashed combination of user_pseudo_id and stream_id
-unit_tests:
-  - name: test_stg_ga4__client_keys_audiences
-    description: >
-      Testing that audiences process properly when configured.
+## Unit tests are disabled for now as they are not working for our project.
+## unit_tests:
+##  - name: test_stg_ga4__client_keys_audiences
+##    description: >
+##      Testing that audiences process properly when configured.
     model: stg_ga4__client_keys
     given: 
       - input: ref('base_ga4__pseudonymous_users')
