@@ -40,7 +40,7 @@
         pre_hook="{{ ga4.combine_property_data() }}" if var('combined_dataset', false) else "",
         materialized = 'incremental',
         incremental_strategy = 'insert_overwrite',
-        on_schema_change='sync_all_columns',
+        on_schema_change='append_new_columns',
         partition_by={
             "field": "event_date_dt",
             "data_type": "date",
