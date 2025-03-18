@@ -60,6 +60,27 @@ with session_events as (
         ,event_campaign
         ,event_content
         ,event_term
+        , session_traffic_source_last_click_manual_campaign_id
+        , session_traffic_source_last_click_manual_campaign_name
+        , session_traffic_source_last_click_manual_source
+        , session_traffic_source_last_click_manual_medium
+        , session_traffic_source_last_click_manual_term
+        , session_traffic_source_last_click_manual_content
+        , session_traffic_source_last_click_manual_source_polatform
+        , session_traffic_source_last_click_creative_format
+        , session_traffic_source_last_click_manual_marketing_tactic
+        , collected_traffic_source_manual_campaign_id
+        , collected_traffic_source_manual_campaign_name
+        , collected_traffic_source_manual_source
+        , collected_traffic_source_manual_medium
+        , collected_traffic_source_manual_term
+        , collected_traffic_source_manual_content
+        , collected_traffic_source_manual_source_platform
+        , collected_traffic_source_manual_creative_format
+        , collected_traffic_source_manual_marketing_tactic
+        , collected_traffic_source_gclid
+        , collected_traffic_source_dclid
+        , collected_traffic_source_srsltid
         ,source_category
     from {{ref('stg_ga4__events')}} events
     left join {{ref('ga4_source_categories')}} source_categories on events.event_source = source_categories.source
@@ -84,6 +105,26 @@ first_session_source as (
         ,session_partition_key
         ,session_partition_date
         ,event_timestamp
+        , first_value(session_traffic_source_last_click_manual_campaign_id ignore nulls) over (session_window) as session_traffic_source_last_click_manual_campaign_id
+        , first_value(session_traffic_source_last_click_manual_campaign_name ignore nulls) over (session_window) as session_traffic_source_last_click_manual_campaign_name
+        , first_value(session_traffic_source_last_click_manual_source ignore nulls) over (session_window) as session_traffic_source_last_click_manual_source
+        , first_value(session_traffic_source_last_click_manual_medium ignore nulls) over (session_window) as session_traffic_source_last_click_manual_medium
+        , first_value(session_traffic_source_last_click_manual_term ignore nulls) over (session_window) as session_traffic_source_last_click_manual_term
+        , first_value(session_traffic_source_last_click_manual_content ignore nulls) over (session_window) as session_traffic_source_last_click_manual_content
+        , first_value(session_traffic_source_last_click_manual_source_polatform ignore nulls) over (session_window) as session_traffic_source_last_click_manual_source_polatform
+        , first_value(session_traffic_source_last_click_creative_format ignore nulls) over (session_window) as session_traffic_source_last_click_creative_format
+        , first_value(session_traffic_source_last_click_manual_marketing_tactic ignore nulls) over (session_window) as session_traffic_source_last_click_manual_marketing_tactic
+        , first_value(collected_traffic_source_manual_campaign_id ignore nulls) over (session_window) as session_collected_traffic_source_manual_campaign_id
+        , first_value(collected_traffic_source_manual_medium ignore nulls) over (session_window) as session_collected_traffic_source_manual_medium
+        , first_value(collected_traffic_source_manual_term ignore nulls) over (session_window) as session_collected_traffic_source_manual_term
+        , first_value(collected_traffic_source_manual_content ignore nulls) over (session_window) as session_collected_traffic_source_manual_content
+        , first_value(collected_traffic_source_manual_source_platform ignore nulls) over (session_window) as session_collected_traffic_source_manual_source_platform
+        , first_value(collected_traffic_source_manual_creative_format ignore nulls) over (session_window) as session_collected_traffic_source_manual_creative_format
+        , first_value(collected_traffic_source_manual_marketing_tactic ignore nulls) over (session_window) as session_collected_traffic_source_manual_marketing_tactic
+        , first_value(collected_traffic_source_gclid ignore nulls) over (session_window) as session_collected_traffic_source_gclid
+        , first_value(collected_traffic_source_dclid ignore nulls) over (session_window) as session_collected_traffic_source_dclid
+        , first_value(collected_traffic_source_srsltid ignore nulls) over (session_window) as session_collected_traffic_source_srsltid
+
         ,COALESCE(FIRST_VALUE((CASE WHEN event_source <> '(direct)' THEN event_source END) IGNORE NULLS) OVER (session_window), '(direct)') AS session_source
         ,COALESCE(FIRST_VALUE((CASE WHEN event_source <> '(direct)' THEN COALESCE(event_medium, '(none)') END) IGNORE NULLS) OVER (session_window), '(none)') AS session_medium
         ,COALESCE(FIRST_VALUE((CASE WHEN event_source <> '(direct)' THEN COALESCE(source_category, '(none)') END) IGNORE NULLS) OVER (session_window), '(none)') AS session_source_category
@@ -106,6 +147,25 @@ select  stream_id
         ,client_key
         ,session_partition_key
         ,session_partition_date
+        , session_traffic_source_last_click_manual_campaign_id
+        , session_traffic_source_last_click_manual_campaign_name
+        , session_traffic_source_last_click_manual_source
+        , session_traffic_source_last_click_manual_medium
+        , session_traffic_source_last_click_manual_term
+        , session_traffic_source_last_click_manual_content
+        , session_traffic_source_last_click_manual_source_polatform
+        , session_traffic_source_last_click_creative_format
+        , session_traffic_source_last_click_manual_marketing_tactic
+        , session_collected_traffic_source_manual_campaign_id
+        , session_collected_traffic_source_manual_medium
+        , session_collected_traffic_source_manual_term
+        , session_collected_traffic_source_manual_content
+        , session_collected_traffic_source_manual_source_platform
+        , session_collected_traffic_source_manual_creative_format
+        , session_collected_traffic_source_manual_marketing_tactic
+        , session_collected_traffic_source_gclid
+        , session_collected_traffic_source_dclid
+        , session_collected_traffic_source_srsltid
         ,session_source
         ,session_medium
         ,session_source_category
