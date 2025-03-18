@@ -18,3 +18,9 @@ sources:
             warn_after: {count: 24, period: hour}  
             error_after: {count: 48, period: hour} 
         loaded_at_field: "TIMESTAMP_MICROS(event_timestamp)"
+      - name: pseudonymous_users
+        identifier: pseudonymous_users_* 
+        description: Daily sharded pseudonymous_users (client_id) table exported by GA4
+      - name: users
+        identifier: users_* 
+        description: Daily sharded users (user_id) table exported by GA4
