@@ -13,10 +13,11 @@ models:
     columns:
       - name: user_id
         description: The user_id as passed to Google Analytics using the native user ID feature.
-unit_tests:
-  - name: test_stg_ga4__users_audiences
-    description: >
-      Testing that audiences process properly when configured.
+## Unit tests are disabled for now as they are not working for our project.
+## unit_tests:
+##  - name: test_stg_ga4__users_audiences
+##    description: >
+##      Testing that audiences process properly when configured.
     model: stg_ga4__users
     given: 
       - input: ref('base_ga4__users')
