@@ -67,7 +67,7 @@ with session_events as (
         , session_traffic_source_last_click_manual_medium
         , session_traffic_source_last_click_manual_term
         , session_traffic_source_last_click_manual_content
-        , session_traffic_source_last_click_manual_source_polatform
+        , session_traffic_source_last_click_manual_source_platform
         , session_traffic_source_last_click_creative_format
         , session_traffic_source_last_click_manual_marketing_tactic
         , collected_traffic_source_manual_campaign_id
@@ -112,7 +112,7 @@ first_session_source as (
         , first_value(session_traffic_source_last_click_manual_medium ignore nulls) over (session_window) as session_traffic_source_last_click_manual_medium
         , first_value(session_traffic_source_last_click_manual_term ignore nulls) over (session_window) as session_traffic_source_last_click_manual_term
         , first_value(session_traffic_source_last_click_manual_content ignore nulls) over (session_window) as session_traffic_source_last_click_manual_content
-        , first_value(session_traffic_source_last_click_manual_source_polatform ignore nulls) over (session_window) as session_traffic_source_last_click_manual_source_polatform
+        , first_value(session_traffic_source_last_click_manual_source_platform ignore nulls) over (session_window) as session_traffic_source_last_click_manual_source_platform
         , first_value(session_traffic_source_last_click_creative_format ignore nulls) over (session_window) as session_traffic_source_last_click_creative_format
         , first_value(session_traffic_source_last_click_manual_marketing_tactic ignore nulls) over (session_window) as session_traffic_source_last_click_manual_marketing_tactic
         , first_value(collected_traffic_source_manual_campaign_id ignore nulls) over (session_window) as session_collected_traffic_source_manual_campaign_id
@@ -155,7 +155,7 @@ select  stream_id
         , session_traffic_source_last_click_manual_medium
         , session_traffic_source_last_click_manual_term
         , session_traffic_source_last_click_manual_content
-        , session_traffic_source_last_click_manual_source_polatform
+        , session_traffic_source_last_click_manual_source_platform
         , session_traffic_source_last_click_creative_format
         , session_traffic_source_last_click_manual_marketing_tactic
         , session_collected_traffic_source_manual_campaign_id
