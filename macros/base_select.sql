@@ -38,7 +38,7 @@
     {% if var('start_date', '20240101') >= '20240717' %}
     -- session_traffic_source_last_click was introduced on 2024-07-17 to enhance attribution tracking
     -- This field provides more detailed session-level attribution data compared to the standard traffic_source
-    {{ log("Using new session_traffic_source_last_click fields (introduced 2024-07-17)", info=True) }}
+    {{ log("The session_traffic_source_last_click fields (introduced 2024-07-17) in GA4 are used", info=True) }}
     , session_traffic_source_last_click
     {% endif %}
     , collected_traffic_source
@@ -101,8 +101,8 @@
     , traffic_source.medium as user_medium
     , traffic_source.source as user_source
     {% if var('start_date', '20240101') >= '20240717' %}
-    
     -- The following fields are part of session_traffic_source_last_click, introduced on 2024-07-17
+    {{ log("The session_traffic_source_last_click fields (introduced 2024-07-17) in GA4 are used", info=True) }}
     , session_traffic_source_last_click.manual_campaign.campaign_id as session_traffic_source_last_click_manual_campaign_id
     , session_traffic_source_last_click.manual_campaign.campaign_name as session_traffic_source_last_click_manual_campaign_name
     , session_traffic_source_last_click.manual_campaign.source as session_traffic_source_last_click_manual_source
@@ -121,7 +121,7 @@
     , collected_traffic_source.manual_content as collected_traffic_source_manual_content
     {% if var('start_date', '20240101') >= '20240711' %}
     -- The following manual fields were introduced on 2024-07-11 to enhance marketing campaign tracking
-    {{ log("Using new manual marketing fields (introduced 2024-07-11)", info=True) }}
+    {{ log("The manual marketing fields (introduced 2024-07-11) in GA4 are used", info=True) }}
     , collected_traffic_source.manual_source_platform as collected_traffic_source_manual_source_platform
     , collected_traffic_source.manual_creative_format as collected_traffic_source_manual_creative_format
     , collected_traffic_source.manual_marketing_tactic as collected_traffic_source_manual_marketing_tactic
