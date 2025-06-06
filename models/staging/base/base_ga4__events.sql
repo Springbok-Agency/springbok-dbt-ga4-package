@@ -54,12 +54,7 @@ with source as (
     select
         {{ ga4.base_select_source() }}
     from {{ source('ga4', 'events') }}
-    where cast(left(replace(_table_suffix, 'intraday_', ''), 8) as int64) >= 
-    {% if flags.EMPTY %}
-        format_date('%Y%m%d', date_sub(current_date(), interval 1 day))
-    {% else %}
-        {{var('start_date')}}
-    {% endif %}
+    where cast(left(replace(_table_suffix, 'intraday_', ''), 8) as int64) >= {{var('start_date')}}
     {% if var('end_date') is not none %}
         and cast(left(replace(_table_suffix, 'intraday_', ''), 8) as int64) <= {{ var('end_date')}}
     {% endif %}
