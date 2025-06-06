@@ -42,9 +42,13 @@
     , session_traffic_source_last_click
     {% endif %}
     , collected_traffic_source
-    , {%- if  var('combined_dataset', false) != false %} cast(left(regexp_replace(_table_suffix, r'^(intraday_)?\d{8}', ''), 100) as int64)
-        {%- else %} {{ var('property_ids')[0] }}
-        {%- endif %} as property_id
+    , {%- if flags.EMPTY %}
+        format_date('%Y%m%d', date_sub(current_date(), interval 1 day))
+    {%- elif var('combined_dataset', false) != false %} 
+        cast(left(regexp_replace(_table_suffix, r'^(intraday_)?\d{8}', ''), 100) as int64)
+    {%- else %} 
+        {{ var('property_ids')[0] }}
+    {%- endif %} as property_id
 {% endmacro %}
 
 {% macro base_select_renamed() %}
