@@ -12,8 +12,7 @@
 
 
 {% if start_date and end_date %}
-    {{ log("Running with start_date: " ~ start_date, info=True) }}
-    {{ log("Running with end_date: " ~ end_date, info=True) }}
+    {{ log("Running query for date range: " ~ start_date ~ " to " ~ end_date, info=True) }}
 
     {% set formatted_start_date = start_date[:4] ~ '-' ~ start_date[4:6] ~ '-' ~ start_date[6:] %}
     {% set formatted_end_date = end_date[:4] ~ '-' ~ end_date[4:6] ~ '-' ~ end_date[6:] %}
@@ -30,6 +29,7 @@
         {% do partitions_to_replace.append(formatted_date) %}
     {% endfor %}
 
+    {{ log("Processing " ~ partitions_to_replace|length ~ " partitions", info=True) }}
 {% endif %}
 
 {{ log("Partitions to replace: " ~ partitions_to_replace, info=True) }}
