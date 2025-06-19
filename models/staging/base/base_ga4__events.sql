@@ -1,3 +1,9 @@
+{% if execute %}
+    {% if flags.FULL_REFRESH %}
+        {{ exceptions.raise_compiler_error("Full refresh is not allowed for this model. Exclude it from the run via the argument \"--exclude model_name\".") }}
+    {% endif %}
+{% endif %}
+
 {% set partitions_to_replace = ['current_date'] %}
 {% for i in range(var('static_incremental_days')) %}
     {% set partitions_to_replace = partitions_to_replace.append('date_sub(current_date, interval ' + (i+1)|string + ' day)') %}
