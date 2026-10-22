@@ -1,0 +1,19 @@
+uv.lock
+  s_6548e07d369b21::t_5ff35267a7a599 74,76,78
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "b6f4958dc73137b2b788ba57b286b030634dff1f",
+  "prompts": {},
+  "sessions": {
+    "s_6548e07d369b21": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "725b5253-ac04-470b-ade4-99a7402041d9",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Davy van der Horst <davy.vanderhorst@springbokagency.com>"
+    }
+  }
+}
